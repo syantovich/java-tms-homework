@@ -3,8 +3,8 @@ package org.syantovich.doctors;
 import org.syantovich.abstr.Doctor;
 
 public class Dentist extends Doctor {
-    public Dentist(String name) {
-        super(name);
+    public Dentist(String name, int code) {
+        super(name,code);
     }
 
     @Override

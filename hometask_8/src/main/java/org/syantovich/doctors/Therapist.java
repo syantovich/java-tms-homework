@@ -13,8 +13,8 @@ public final class Therapist extends Doctor {
         super(name);
     }
 
-    public void saveDoctor(Doctor doctor, int code) {
-        this.doctorsByPlanCodes.put(code, doctor);
+    public void saveDoctor(Doctor doctor) {
+        this.doctorsByPlanCodes.put(doctor.code,doctor);
     }
 
     public Doctor getDoctorByCode(int code) {
