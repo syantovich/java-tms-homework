@@ -2,17 +2,24 @@ package org.syantovich.doctors;
 
 import org.syantovich.abstr.Doctor;
 
+import java.util.HashMap;
+
 public final class Therapist extends Doctor {
 
-    public Therapist(String name, int code, boolean isDefaultDoctor) {
-        super(name,code,isDefaultDoctor);
-        Doctor.saveDoctor(this, code);
+    private final HashMap<Integer, Doctor> doctorsByPlanCodes = new HashMap<Integer, Doctor>();
+    private int defaultDoctorCode;
+
+    public Therapist(String name) {
+        super(name);
     }
 
-    public Therapist(String name, int code) {
-        this(name, code, false);
+    public void saveDoctor(Doctor doctor, int code) {
+        this.doctorsByPlanCodes.put(code, doctor);
     }
 
+    public Doctor getDoctorByCode(int code) {
+        return this.doctorsByPlanCodes.getOrDefault(code, this);
+    }
     @Override
     public void toHeal() {
         System.out.println("I'll give you analgin");

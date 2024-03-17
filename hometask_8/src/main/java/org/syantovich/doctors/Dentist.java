@@ -3,13 +3,8 @@ package org.syantovich.doctors;
 import org.syantovich.abstr.Doctor;
 
 public class Dentist extends Doctor {
-    public Dentist(String name, int code, boolean isDefaultDoctor) {
-        super(name, code, isDefaultDoctor);
-        Doctor.saveDoctor(this, code);
-    }
-
-    public Dentist(String name, int code) {
-        this(name, code, false);
+    public Dentist(String name) {
+        super(name);
     }
 
     @Override

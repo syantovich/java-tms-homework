@@ -7,11 +7,13 @@ import org.syantovich.doctors.Therapist;
 
 public class Main {
     public static void main(String[] args) {
-        new Surgeon("Anderi", 1);
-        new Dentist("Ivan", 2);
-        new Therapist("Egor", 3, true);
+        Surgeon surgeon = new Surgeon("Anderi");
+        Dentist dentist = new Dentist("Ivan");
+        Therapist mainTherapist = new Therapist("Egor");
+        mainTherapist.saveDoctor(surgeon, 1);
+        mainTherapist.saveDoctor(dentist, 2);
 
-        Patient[] patients = {new Patient(1), new Patient(2), new Patient(3), new Patient(2), new Patient(155)};
+        Patient[] patients = {new Patient(1, mainTherapist), new Patient(2, mainTherapist), new Patient(3, mainTherapist), new Patient(2, mainTherapist), new Patient(155, mainTherapist)};
         for (Patient patient :
                 patients) {
             patient.toHeal();
