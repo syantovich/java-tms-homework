@@ -5,44 +5,29 @@ import org.syantovich.abstr.ValidationError;
 import java.util.regex.Pattern;
 
 public class Validator {
-    String value;
-    boolean result = false;
-    ValidationError exception;
 
-    public Validator(String value, ValidationError exception) {
-        this.value = value;
-        this.exception = exception;
-    }
-
-    public Validator(String value) {
-        this(value, new ValidationError(String.format("Failed to validate %s", value)));
-    }
-
-    private void setResult(boolean nextResult) throws ValidationError {
-        if (!nextResult) {
-            throw exception;
+    static void maxLength(String value, int length) throws ValidationError {
+        if (value.length() > length) {
+            throw new ValidationError();
         }
     }
 
-
-    Validator maxLength(int length) throws ValidationError {
-        setResult(this.value.length() < length);
-        return this;
+    static void withoutSpace(String value) throws ValidationError {
+        if (value.contains(" ")) {
+            throw new ValidationError();
+        }
     }
 
-    Validator withoutSpace() throws ValidationError {
-        setResult(!value.contains(" "));
-        return this;
-    }
-
-    Validator containNumber() throws ValidationError {
+    static void containNumber(String value) throws ValidationError {
         Pattern pattern = Pattern.compile(".*\\d.*");
-        setResult(Pattern.compile(".*\\d.*").matcher(this.value).find());
-        return this;
+        if (!pattern.matcher(value).find()) {
+            throw new ValidationError();
+        }
     }
 
-    Validator equalAnotherValue(String anotherValue) throws ValidationError {
-        setResult(this.value.equals(anotherValue));
-        return this;
+    static void equalAnotherValue(String value, String anotherValue) throws ValidationError {
+        if (!value.equals(anotherValue)) {
+            throw new ValidationError();
+        }
     }
 }

@@ -7,48 +7,50 @@ import org.syantovich.errors.WrongPasswordException;
 
 public class Registration {
 
-    public static boolean validate(String login, String password, String confirmPassword) {
+    public static void validate(String login, String password, String confirmPassword) throws WrongLoginException, WrongPasswordException, WrongConfirmPasswordException {
+        Registration.validateLogin(login);
+        Registration.validatePassword(password);
+        Registration.validateConfirmPassword(password, confirmPassword);
+    }
+
+    public static void validateLogin(String value) throws WrongLoginException {
         try {
-            Registration.validateLogin(login);
-            Registration.validatePassword(password);
-            Registration.validateConfirmPassword(password, confirmPassword);
-            return true;
-        } catch (WrongLoginException | WrongPasswordException | WrongConfirmPasswordException error) {
-            return false;
+            Validator.maxLength(value, 22);
+            Validator.withoutSpace(value);
+        } catch (ValidationError error) {
+            System.out.println("WrongLoginException");
+            throw new WrongLoginException(error.getMessage());
         }
     }
 
-    private static void validateLogin(String value) throws WrongLoginException {
+    public static void validatePassword(String value) throws WrongPasswordException {
         try {
-            Validator validator = new Validator(value, new WrongLoginException());
-            validator.maxLength(20).withoutSpace();
+            Validator.maxLength(value, 20);
+            Validator.containNumber(value);
+            Validator.withoutSpace(value);
         } catch (ValidationError error) {
-            throw (WrongLoginException) error;
+            System.out.println("WrongPasswordException");
+            throw new WrongPasswordException(error.getMessage());
         }
     }
 
-    private static void validatePassword(String value) throws WrongPasswordException {
+    public static void validateConfirmPassword(String password, String confirmPassword) throws WrongConfirmPasswordException {
         try {
-            Validator validator = new Validator(value, new WrongPasswordException());
-            validator.maxLength(20).containNumber().withoutSpace();
+            Validator.equalAnotherValue(password, confirmPassword);
         } catch (ValidationError error) {
-            throw (WrongPasswordException) error;
-        }
-    }
-
-    private static void validateConfirmPassword(String password, String confirmPassword) throws WrongConfirmPasswordException {
-        try {
-            Validator validator = new Validator(password, new WrongConfirmPasswordException());
-            validator.equalAnotherValue(confirmPassword);
-        } catch (ValidationError error) {
-            throw (WrongConfirmPasswordException) error;
+            System.out.println("WrongConfirmPasswordException");
+            throw new WrongConfirmPasswordException(error.getMessage());
         }
     }
 
     public static void main(String[] args) {
-        System.out.println(Registration.validate("sdllls","adssdd2","21321"));
-        System.out.println(Registration.validate("sdlllsdsfdsfdsfdsfdsfdsfdsfdsfdsfdsfdsfdsf","adssdd2","21321"));
-        System.out.println(Registration.validate("dsadas","adssdd2","adssdd2"));
+       try{
+           Registration.validateLogin("Somelogin");
+           Registration.validatePassword("adssdd2");
+           Registration.validateConfirmPassword("adssdd2", "21321");
+           Registration.validate("dsadas", "adssdd2", "adssdd2");
+       }catch (ValidationError err){
 
+       }
     }
 }
