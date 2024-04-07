@@ -15,7 +15,7 @@ public class Registration {
 
     public static void validateLogin(String value) throws WrongLoginException {
         try {
-            Validator.maxLength(value, 22);
+            Validator.validateMaxLength(value, 22);
             Validator.withoutSpace(value);
         } catch (ValidationError error) {
             System.out.println("WrongLoginException");
@@ -25,7 +25,7 @@ public class Registration {
 
     public static void validatePassword(String value) throws WrongPasswordException {
         try {
-            Validator.maxLength(value, 20);
+            Validator.validateMaxLength(value, 20);
             Validator.containNumber(value);
             Validator.withoutSpace(value);
         } catch (ValidationError error) {

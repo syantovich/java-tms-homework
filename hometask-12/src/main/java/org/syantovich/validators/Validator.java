@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class Validator {
 
-    static void maxLength(String value, int length) throws ValidationError {
+    static void validateMaxLength(String value, int length) throws ValidationError {
         if (value.length() > length) {
             throw new ValidationError();
         }
