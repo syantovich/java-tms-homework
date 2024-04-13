@@ -1,0 +1,10 @@
+Romeo: text for Romeo1
+Text for Romeo2
+Text for Romeo3
+Gulieta: text fo Gulieta1
+text fo Gulieta2
+text fo Gulieta3
+text fo Gulieta4
+Romeo: text for Romeo4
+Text for Romeo5
+Text for Romeo6

@@ -1,61 +1,70 @@
 package org.syantovich;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SpectParser {
-    String[] roles;
-    String filePath;
+    List<String> roles = List.of("Romeo", "Gulieta");
+    String filePath = "all.txt";
     private String currentRole = null;
+    private int currentRoleIndex = -1;
 
-    public SpectParser(String[] roles, String fileWithAllRolesPath) {
-        this.roles = roles;
-        this.filePath = fileWithAllRolesPath;
-    }
-
-    public SpectParser(String filePath) {
-        this(new String[]{"Romeo", "Gulieta"}, filePath);
-    }
-
-    public void removeAllRolesFiles() {
-        for (String role : roles) {
+    public void clearAllFiles() {
+        for (String role : this.roles) {
             try {
-                new File(String.format("%s.txt", role)).delete();
+                new File(role + ".txt").delete();
             } catch (Exception ignored) {
             }
         }
     }
 
-    public void parseRoles() {
-        this.removeAllRolesFiles();
+    private void checkRole(String line) {
+        for (int i = 0; i < this.roles.size(); i++) {
+            String role = roles.get(i);
 
+            if (line.startsWith(role + ":")) {
+                this.currentRole = role;
+                this.currentRoleIndex = i;
+                break;
+            }
+        }
+    }
+
+    public void parseRoles() {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            this.clearAllFiles();
+
             String line = br.readLine();
-            do {
-                for (String role : roles) {
-                    System.out.print(line.startsWith(String.format("%s:", role)) + " - ");
-                    System.out.println(line);
-                    if (line.startsWith(String.format("%s:", role))) {
-                        this.currentRole = role;
-                    }
-                }
-                System.out.println(line);
+            List<BufferedWriter> bwList = new ArrayList<>();
+
+            for (String role : roles) {
+                bwList.add(new BufferedWriter(new FileWriter(role + ".txt", true)));
+            }
+            while (line != null) {
+
+                this.checkRole(line);
                 if (currentRole != null) {
-                    try (BufferedWriter bw = new BufferedWriter(new FileWriter(String.format("%s.txt", currentRole), true))) {
-                        bw.write(line);
-                        bw.newLine();
-                    } catch (Exception ignored) {
-                    }
+                    BufferedWriter bw = bwList.get(this.currentRoleIndex);
+                    System.out.println(bw);
+                    bw.write(line);
+                    bw.newLine();
                 }
                 line = br.readLine();
-            } while (line != null);
-        } catch (Exception ignored) {
-            System.out.println(ignored);
+            }
+            for (BufferedWriter bw : bwList) {
+                bw.close();
+            }
+        } catch (FileNotFoundException exc) {
+            System.out.println("File for reading is not found");
+        } catch (IOException exc) {
+            System.out.println("Error to read or write");
         }
     }
 
 
     public static void main(String[] args) {
-        SpectParser spectParser = new SpectParser("all.txt");
+        SpectParser spectParser = new SpectParser();
         spectParser.parseRoles();
     }
 }
