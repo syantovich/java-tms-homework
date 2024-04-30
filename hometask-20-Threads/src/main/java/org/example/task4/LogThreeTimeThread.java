@@ -11,16 +11,15 @@ public class LogThreeTimeThread extends Thread {
 
     @Override
     public void run() {
-        for (int i = 0; i < 3; i++) {
-            synchronized (marker){
+        synchronized (marker) {
+            for (int i = 0; i < 3; i++) {
                 System.out.println(logString);
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
             }
         }
-
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
