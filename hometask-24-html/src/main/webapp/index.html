@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Booking course</title>
+    <link type="text/css" rel="stylesheet" href="course.css">
+</head>
+<body>
+<header>
+    <h1>Запись на курсы</h1>
+</header>
+<main>
+    <form method="post" action="/book">
+        <label>
+            <p class="label-input">Имя:</p>
+            <input type="text" name="name" required>
+        </label>
+
+        <label class="radio">
+            <div class="label-input"><p>Язык программирования:</p></div>
+            <ul>
+                <li>
+                    <input type="radio" name="programming-language" value="C++" checked>
+                    <p>C++</p>
+                </li>
+                <li>
+                    <input type="radio" name="programming-language" value="PHP">
+                    <p>PHP</p>
+                </li>
+                <li>
+                    <input type="radio" name="programming-language" value="Python">
+                    <p>Python</p>
+                </li>
+            </ul>
+
+        </label>
+
+        <label>
+            <p class="label-input">Дополнительная информация:</p>
+            <textarea name="extra-info" required></textarea>
+        </label>
+
+        <label>
+            <p class="label-input">Секртетное слово:</p>
+            <input name="secret-word" required type="password"/>
+        </label>
+        <button type="submit">Отправить</button>
+    </form>
+</main>
+</body>
+</html>
