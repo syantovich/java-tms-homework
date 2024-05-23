@@ -1,0 +1,33 @@
+main section:nth-child(odd) {
+    background: radial-gradient(rgb(85, 86, 129), rgb(33, 33, 51));
+    color: white;
+}
+
+main section:nth-child(even) {
+    background: white;
+    color: black;
+}
+
+.teacher-image {
+    width: 100%;
+    height: 160px;
+}
+
+.teacher-image img {
+    width: 100%;
+    height: fit-content;
+
+    top: -25%;
+}
+
+@media screen and (max-width: 768px) {
+    .teacher-image {
+        height: 160px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .teacher-image {
+        height: 230px;
+    }
+}
