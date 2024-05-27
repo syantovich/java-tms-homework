@@ -1,0 +1,20 @@
+.film {
+    display: flex;
+    gap: 20px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.edit-box {
+    padding: 5px;
+    border: 1px solid red;
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style-type: none;
+}
