@@ -5,6 +5,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
     public static void main(String[] args) {
-        ApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("app.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("app.xml");
+        DbService dbService = context.getBean(DbService.class);
+        System.out.println(dbService.getData());
     }
 }
