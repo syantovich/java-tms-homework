@@ -4,16 +4,12 @@ import org.example.*;
 import org.example.interfaces.UserConnectorService;
 import org.example.services.BetInfoService;
 import org.example.services.UserConnectorServiceConsole;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 @Configuration
-@ComponentScan(basePackages = "org.example")
 public class App {
 
     @Bean

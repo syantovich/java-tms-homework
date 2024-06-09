@@ -1,9 +1,7 @@
 package org.example;
 
 import org.example.interfaces.Power;
-import org.springframework.context.annotation.Scope;
 
-@Scope("prototype")
 public class RidePair implements Power {
     private final Horse horse;
     private final Rider rider;

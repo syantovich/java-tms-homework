@@ -2,12 +2,10 @@ package org.example;
 
 import com.github.javafaker.Faker;
 import org.example.interfaces.Power;
-import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import java.util.concurrent.ThreadLocalRandom;
 
-@Scope("prototype")
 public class Rider implements Power {
     private String name;
     private int age;
