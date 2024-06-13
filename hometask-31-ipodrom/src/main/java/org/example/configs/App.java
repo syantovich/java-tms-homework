@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
+@ComponentScan("org.example.aspect")
+@EnableAspectJAutoProxy
 public class App {
 
     @Bean

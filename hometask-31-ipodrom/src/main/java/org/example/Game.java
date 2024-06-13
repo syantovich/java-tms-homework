@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.annotation.Benchmark;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ public class Game {
         return ridePairs;
     }
 
+    @Benchmark
     public Optional<RidePair> play() {
         return ridePairs.stream().reduce((ident, acc) -> Math.random() * ident.getPower() > acc.getPower() * Math.random() ? ident : acc);
     }
