@@ -1,4 +1,4 @@
-package org.example.pages;
+package org.example.controllers;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.DatabaseService;
 import org.example.Film;
+import org.example.FilmError;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -32,8 +33,7 @@ public class Edit extends HttpServlet {
         boolean viewed = req.getParameter("viewed") != null;
         try {
             service.updateFilm(new Film(UUID.fromString(uuid), name, description, year, viewed));
-        } catch (Exception e) {
-            throw new ServletException(e);
+        } catch (FilmError e) {
         }
         resp.sendRedirect("/all");
     }

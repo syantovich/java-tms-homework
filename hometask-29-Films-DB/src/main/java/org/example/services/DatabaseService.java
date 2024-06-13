@@ -1,16 +1,21 @@
-package org.example;
+package org.example.services;
 
+import lombok.RequiredArgsConstructor;
 import org.example.mapper.FilmMapper;
+import org.example.models.entity.Film;
+import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.*;
 
+@Service
+@RequiredArgsConstructor
 public class DatabaseService {
-    private static final FilmMapper mapper = new FilmMapper();
+    private final FilmMapper mapper;
 
     public Film getFilm(UUID uuid) {
         try (Connection connection = getConnection()) {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM films WHERE uuid = ?");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM films WHERE id = ?");
             ps.setObject(1, uuid);
             ResultSet rs = ps.executeQuery();
 
@@ -27,13 +32,14 @@ public class DatabaseService {
             ResultSet resultSet = statement.executeQuery("select * from films order by name asc");
             return mapper.maps(resultSet);
         } catch (Exception ignored) {
-            throw new RuntimeException();
+
+            throw new RuntimeException(ignored);
         }
     }
 
     public void addFilm(Film film) {
         try (Connection connection = getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO films (id, name, desription, year, is_viewed) VALUES (?,?,?,?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO films (id, name, description, year, is_viewed) VALUES (?,?,?,?,?)");
             preparedStatement.setObject(1, film.getUuid());
             preparedStatement.setString(2, film.getFilmName());
             preparedStatement.setString(3, film.getDescription());
@@ -70,8 +76,14 @@ public class DatabaseService {
         }
     }
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/tms_db?user=postgres&password=root");
+    public Connection getConnection() throws SQLException {
+        try{
+            Class.forName("org.postgresql.Driver");
+            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/tms_db?user=postgres&password=root");
+
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 
 }

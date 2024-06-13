@@ -10,7 +10,7 @@
 <head>
     <title>Add new film</title>
 </head>
-<link rel="stylesheet" href="css/general.css">
+<link rel="stylesheet" href="../css/general.css">
 <body>
 
 <form action="/add-film" method="post">

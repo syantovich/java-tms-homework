@@ -12,7 +12,7 @@
 <head>
     <title>All Films</title>
 </head>
-<link rel="stylesheet" href="css/general.css">
+<link rel="stylesheet" href="../css/general.css">
 <body>
 <h3>
     All films
