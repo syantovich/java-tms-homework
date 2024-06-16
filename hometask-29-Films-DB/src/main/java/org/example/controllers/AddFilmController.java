@@ -1,13 +1,17 @@
 package org.example.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.services.DatabaseService;
 import org.example.models.entity.Film;
+import org.example.services.DatabaseService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -17,22 +21,35 @@ public class AddFilmController {
     private final DatabaseService databaseService;
 
     @GetMapping
-    protected String doGet() {
+    protected String doGet(@ModelAttribute(name = "filmModel") Film film, @RequestParam(name = "id", required = false) String editId, Model model) {
+        if (editId != null) {
+            model.addAttribute("isEdit", true);
+            Film nextFilm = databaseService.getFilm(UUID.fromString(editId));
+            System.out.println(nextFilm);
+            if (nextFilm != null) {
+                film.setFilmName(nextFilm.getFilmName());
+                film.setDescription(nextFilm.getDescription());
+                film.setYear(nextFilm.getYear());
+                film.setViewed(nextFilm.isViewed());
+                film.setUuid(nextFilm.getUuid());
+            }
+        }
         return "/add-film";
     }
 
     @PostMapping
     protected String doPost(
-            @RequestParam(name = "name") String name,
-            @RequestParam(name = "description") String description,
-            @RequestParam(name = "year") int year,
-            @RequestParam(name = "viewed",required = false) boolean viewed
+            @ModelAttribute(name = "filmModel") @Valid @RequestBody Film film,
+            BindingResult bindingResult
     ) {
         try {
-            databaseService.addFilm(new Film(name, description, year, viewed));
+            if (!bindingResult.hasErrors()) {
+                databaseService.addFilm(film);
+                return "redirect:/all";
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return "redirect:/all";
+        return "/add-film";
     }
 }

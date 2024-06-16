@@ -19,6 +19,7 @@ public class DatabaseService {
             ps.setObject(1, uuid);
             ResultSet rs = ps.executeQuery();
 
+            rs.next();
             return mapper.map(rs);
         } catch (Exception e) {
             throw new RuntimeException(e);
