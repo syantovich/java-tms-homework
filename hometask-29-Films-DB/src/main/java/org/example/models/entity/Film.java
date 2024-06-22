@@ -1,20 +1,24 @@
 package org.example.models.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Film {
-    private UUID uuid;
+    private UUID uuid = UUID.randomUUID();
+    @NotEmpty(message = "Field is required")
+    @Length(min = 4, message = "Min length is 4")
     private String filmName;
+    @NotEmpty(message = "Field is required")
     private String description;
+    @Min(value = 1940, message = "Film need to be more than {value}")
     private int year;
     private boolean isViewed;
 
@@ -25,5 +29,4 @@ public class Film {
         this.year = year;
         this.isViewed = isViewed;
     }
-
 }

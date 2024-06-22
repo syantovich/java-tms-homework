@@ -2,17 +2,15 @@ package org.example.controllers;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.services.DatabaseService;
 import org.example.models.entity.Film;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.UUID;
 
 @RequestMapping("/edit")
 @RequiredArgsConstructor
@@ -20,29 +18,23 @@ import java.util.UUID;
 public class EditController {
     private final DatabaseService databaseService;
 
-    @GetMapping
-    protected String doGet(HttpServletRequest req, @RequestParam(name = "id") String id) {
-        req.setAttribute("editId", req.getParameter("id"));
-        req.setAttribute("films", databaseService.getAllFilms());
-        return "/all-films";
-
-    }
-
     @PostMapping
     protected String doPost(
             HttpServletRequest req,
-            @RequestParam(name = "uuid") String uuid,
-            @RequestParam(name = "name") String name,
-            @RequestParam(name = "description") String description,
-            @RequestParam(name = "year") int year,
-            @RequestParam(name = "viewed", required = false) boolean viewed
-    ) throws ServletException, IOException {
+            @ModelAttribute(name = "filmModel") @Valid Film film,
+            BindingResult bindingResult,
+            Model model
+    ) throws ServletException {
         try {
-            databaseService.updateFilm(new Film(UUID.fromString(uuid), name, description, year, viewed));
+            throw new RuntimeException();
+//            if (!bindingResult.hasErrors()) {
+//                databaseService.updateFilm(film);
+//                return "redirect:/all";
+//            }
         } catch (Exception e) {
             throw new ServletException(e);
         }
-        return "redirect:/all";
+//        return "/add-film";
     }
 }
 
