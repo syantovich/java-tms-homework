@@ -1,4 +1,4 @@
-package org.example.pages;
+package org.example.controllers;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.DatabaseService;
 import org.example.Film;
+import org.example.FilmError;
 
 import java.io.IOException;
 
@@ -26,7 +27,7 @@ public class AddFilm extends HttpServlet {
         boolean viewed = req.getParameter("viewed") != null;
         try {
             service.addFilm(new Film(name, description, year, viewed));
-        } catch (Exception e) {
+        } catch (FilmError e) {
             throw new RuntimeException(e);
         }
         resp.sendRedirect("/all");
