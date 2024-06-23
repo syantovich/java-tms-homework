@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: hometask-38-boot-init
+app:
+  key: value
+  profileName: default
+  version: 1.2.0
