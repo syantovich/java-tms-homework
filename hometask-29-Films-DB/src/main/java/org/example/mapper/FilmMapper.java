@@ -1,6 +1,8 @@
 package org.example.mapper;
 
-import org.example.Film;
+import lombok.NoArgsConstructor;
+import org.example.models.entity.Film;
+import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Service
+@NoArgsConstructor
 public class FilmMapper {
     public Film map(ResultSet rs) {
         try {

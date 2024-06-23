@@ -1,26 +1,24 @@
 package org.example.init;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import org.example.DatabaseService;
+import lombok.RequiredArgsConstructor;
 import org.postgresql.Driver;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-@WebServlet(urlPatterns = "/postgreInit", loadOnStartup = 1)
-public class DBInit extends HttpServlet {
-    @Override
-    public void init() throws ServletException {
+@Component
+@RequiredArgsConstructor
+public class DBInit {
+    public void init() {
         try {
             DriverManager.registerDriver(new Driver());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        try (Connection connection = DatabaseService.getConnection()) {
+        try (Connection connection = getConnection()) {
             Statement statement = connection.createStatement();
             statement.execute("create table if not exists films (\n" +
                     "    id uuid primary key,\n" +
@@ -33,4 +31,15 @@ public class DBInit extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
+
+    public Connection getConnection() throws SQLException {
+        try {
+            Class.forName("org.postgresql.Driver");
+            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/tms_db?user=postgres&password=root");
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
