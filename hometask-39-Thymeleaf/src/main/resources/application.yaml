@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: hometask-39-thymeleaf
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tms_db
+    username: postgres
+    password: root
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update

@@ -1,0 +1,24 @@
+.row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    padding: 5px;
+    box-sizing: border-box;
+    border-bottom: 1px solid gray;
+}
+
+.pl-1 {
+    padding-left: 40px;
+}
+
+.buttons {
+    display: none;
+    gap: 14px;
+    padding: 4px;
+}
+
+.row:hover .buttons {
+    display: flex;
+}

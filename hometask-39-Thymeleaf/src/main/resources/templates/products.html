@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>All products</title>
+    <link type="text/css" rel="stylesheet" href="/products.css">
+</head>
+<body>
+PRODUCTS
+<div th:each="product, iStat  : ${products}">
+    <div class="row pl-1">
+        <span th:text="${iStat.index + 1}"></span>
+        <span>Name: <span th:text="${product.getName()}"></span></span>
+        <span>Description: <span th:text="${product.getDescription()}"></span></span>
+        <div class="buttons">
+            <div th:each="button : ${buttons}">
+                <a th:href="@{/products/{id}/{text}(id=${product.getUuid()},text=${button.toLowerCase()})}">
+                    <button th:text="${button}"></button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
