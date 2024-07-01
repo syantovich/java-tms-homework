@@ -10,17 +10,31 @@
 </head>
 <body>
 PRODUCTS
+<a th:href="@{/products/add}">
+    <button>Добавить продукт</button>
+</a>
 <div th:each="product, iStat  : ${products}">
-    <div class="row pl-1">
+    <div class="row pl-1" th:classappend="'product__' + ${product.getStatus().toString().toLowerCase()}">
         <span th:text="${iStat.index + 1}"></span>
         <span>Name: <span th:text="${product.getName()}"></span></span>
         <span>Description: <span th:text="${product.getDescription()}"></span></span>
-        <div class="buttons">
-            <div th:each="button : ${buttons}">
-                <a th:href="@{/products/{id}/{text}(id=${product.getUuid()},text=${button.toLowerCase()})}">
-                    <button th:text="${button}"></button>
+        <span>Price: <span th:text="${product.getPrice()}"></span></span>
+        <span>Status: <span th:text="${product.getStatus()}"></span></span>
+        <div class="buttons" th:switch="${product.getStatus()}">
+            <span th:case="${T(org.syantovich.hometask39thymeleaf.enums.ProductStatus).DELETED}">
+                <a th:href="@{/products/{id}/set-status/{newStatus}(id=${product.getUuid()},newStatus=${T(org.syantovich.hometask39thymeleaf.enums.ProductStatus).ACTIVE})}">
+                    <button>Set ACTIVE status</button>
                 </a>
-            </div>
+            </span>
+            <span th:case="${T(org.syantovich.hometask39thymeleaf.enums.ProductStatus).ACTIVE}">
+                <a th:href="@{/products/{id}/set-status/{newStatus}(id=${product.getUuid()},newStatus=${T(org.syantovich.hometask39thymeleaf.enums.ProductStatus).DELETED})}">
+                    <button>Delete</button>
+                </a>
+                <a th:href="@{/products/{id}/edit(id=${product.getUuid()})}">
+                    <button>Edit</button>
+                </a>
+            </span>
+
         </div>
     </div>
 </div>

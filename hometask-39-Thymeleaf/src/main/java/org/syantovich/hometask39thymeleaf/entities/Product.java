@@ -24,8 +24,8 @@ public class Product {
     private String name;
     @Column(name = "description", nullable = false)
     private String description;
-    @Column(name = "price", nullable = false, precision = 10, scale = 2)
-    private BigDecimal price;
+    @Column(name = "price", nullable = false)
+    private Double price = 0.0;
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private ProductStatus status = ProductStatus.ACTIVE;

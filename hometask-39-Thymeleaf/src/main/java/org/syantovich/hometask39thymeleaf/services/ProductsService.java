@@ -31,8 +31,4 @@ public class ProductsService {
     public void saveProduct(Product product) {
         productsRepository.save(product);
     }
-
-    public List<Product> getNonDeletedProducts() {
-        return productsRepository.findAllExceptStatus(ProductStatus.DELETED);
-    }
 }

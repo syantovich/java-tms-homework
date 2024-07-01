@@ -19,7 +19,4 @@ public interface ProductsRepository extends JpaRepository<Product, UUID> {
 
     @Override
     List<Product> findAll();
-
-    @Query("select p from Product p where p.status != :status")
-    List<Product> findAllExceptStatus(@Param("status") ProductStatus status);
 }

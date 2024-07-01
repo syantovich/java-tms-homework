@@ -22,3 +22,22 @@
 .row:hover .buttons {
     display: flex;
 }
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.form-wrapper {
+    width: 50%;
+}
+
+.product__active, .product__blocked {
+ background-color: azure;
+}
+
+.product__deleted {
+    background-color: #6c6f6f;
+    opacity: 0.5;
+}
