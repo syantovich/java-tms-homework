@@ -1,0 +1,2 @@
+ALTER TABLE products_39 ADD COLUMN count INTEGER;
+ALTER TABLE products_39 ADD COLUMN is_deliverable BOOLEAN;

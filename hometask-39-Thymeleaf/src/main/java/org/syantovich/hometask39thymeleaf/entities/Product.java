@@ -20,19 +20,31 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
+
     @Column(name = "name", nullable = false)
     private String name;
+
     @Column(name = "description", nullable = false)
     private String description;
+
     @Column(name = "price", nullable = false)
     private Double price = 0.0;
+
+    private Integer count = 0;
+
+    @Column(name = "is_deliverable")
+    private Boolean isDeliverable = false;
+
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private ProductStatus status = ProductStatus.ACTIVE;
+
     @Version
     private Integer version;
+
     @CreationTimestamp
     private LocalDateTime created;
+
     @UpdateTimestamp
     private LocalDateTime updated;
 }
