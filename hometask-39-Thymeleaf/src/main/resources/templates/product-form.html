@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:if="${isEdit}">Редактирование продукта</title>
+    <title th:unless="${isEdit}">Создание продукта</title>
+</head>
+<link type="text/css" rel="stylesheet" href="/products.css">
+<body>
+ПРОДУКТ ИНФО
+
+
+<div class="form-wrapper">
+    <form class='form' method="post" th:action="@{/products/{type}(type=${isEdit?'edit':'add'})}"
+          th:object="${product}">
+        <input type="hidden" th:field="*{uuid}">
+        Name: <input type="text" th:field="*{name}">
+        Description: <input type="text" th:field="*{description}">
+        Price: <input type="number" step="0.01" th:field="*{price}"/>
+        Status: <select th:field="*{status}">
+        <option th:each="statusOption : ${T(org.syantovich.hometask39thymeleaf.enums.ProductStatus).values()}"
+                th:value="${statusOption}" th:text="${statusOption}"></option>
+    </select>
+        Count: <input type="number" step="1" th:field="*{count}">
+        Is Deliverable: <input type="checkbox" th:field="*{isDeliverable}" th:checked="*{isDeliverable}">
+        <button>Save</button>
+    </form>
+</div>
+</body>
+</html>
