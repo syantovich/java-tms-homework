@@ -1,6 +1,7 @@
 package org.syantovich.hometask39thymeleaf.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.syantovich.hometask39thymeleaf.entities.Product;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface ProductsRepository extends JpaRepository<Product, UUID> {
+public interface ProductsRepository extends JpaRepository<Product, UUID>, JpaSpecificationExecutor<Product> {
     @Override
     <S extends Product> S save(S entity);
 

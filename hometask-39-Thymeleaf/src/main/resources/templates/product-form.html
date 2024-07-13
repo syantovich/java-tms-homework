@@ -8,6 +8,8 @@
 <link type="text/css" rel="stylesheet" href="/products.css">
 <body>
 ПРОДУКТ ИНФО
+
+
 <div class="form-wrapper">
     <form class='form' method="post" th:action="@{/products/{type}(type=${isEdit?'edit':'add'})}"
           th:object="${product}">
@@ -19,7 +21,8 @@
         <option th:each="statusOption : ${T(org.syantovich.hometask39thymeleaf.enums.ProductStatus).values()}"
                 th:value="${statusOption}" th:text="${statusOption}"></option>
     </select>
-
+        Count: <input type="number" step="1" th:field="*{count}">
+        Is Deliverable: <input type="checkbox" th:field="*{isDeliverable}" th:checked="*{isDeliverable}">
         <button>Save</button>
     </form>
 </div>
