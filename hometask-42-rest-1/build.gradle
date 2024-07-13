@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.1'
+    id 'io.spring.dependency-management' version '1.1.5'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'org.flywaydb', name: 'flyway-core', version: '10.15.0'
+    runtimeOnly group: 'org.flywaydb', name: 'flyway-database-postgresql', version: '10.15.0'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api', version: '6.1.0'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-web-services'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.postgresql:postgresql'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation group: 'org.mapstruct', name: 'mapstruct', version: '1.5.5.Final'
+    annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.5.5.Final'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
