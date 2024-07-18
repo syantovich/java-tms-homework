@@ -17,16 +17,17 @@ public class BikeServiceImpl implements BikeService {
 
     @Override
     public List<BikeDto> findAll(SearchDto searchDto) {
-        searchDto.setIsBooked(false);
-        searchDto.setIsHidden(false);
+        SearchDto search = searchDto != null ? searchDto : new SearchDto();
+        search.setIsBooked(false);
+        search.setIsHidden(false);
         return bikeClient.getBikes(
-                searchDto.getIsHidden(),
-                searchDto.getIsBooked(),
-                searchDto.getType(),
-                searchDto.getBrand(),
-                searchDto.getNum(),
-                searchDto.getPage(),
-                searchDto.getPageSize());
+                search.getIsHidden(),
+                search.getIsBooked(),
+                search.getType(),
+                search.getBrand(),
+                search.getNum(),
+                search.getPage(),
+                search.getPageSize());
     }
 
 

@@ -30,10 +30,11 @@ public class BikeServiceImpl implements BikeService {
 
     @Override
     public List<BikeDto> findAll(SearchDto searchDto) {
-        Integer page = searchDto.getPage();
-        Integer pageSize = searchDto.getPageSize();
+        SearchDto search = searchDto != null ? searchDto : new SearchDto();
+        Integer page = search.getPage();
+        Integer pageSize = search.getPageSize();
 
-        Specification<BikeEntity> globalSpecification = bikeSpecification.createGlobalSpecification(searchDto);
+        Specification<BikeEntity> globalSpecification = bikeSpecification.createGlobalSpecification(search);
 
         if (page != null && page > 0) {
             return bikeMapper.toListBikeDto(bikeRepository.findAll(
