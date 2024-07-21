@@ -1,3 +1,6 @@
 spring:
   application:
     name: hometask-43
+springdoc:
+  swagger-ui:
+    path: /api-doc

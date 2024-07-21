@@ -16,7 +16,7 @@ public class BikeController {
     private final BikeService bikeService;
 
     @GetMapping
-    public List<BikeDto> getBikes(SearchDto searchDto) {
+    public List<BikeDto> getBikes(@RequestParam(required = false) SearchDto searchDto) {
         return bikeService.findAll(searchDto);
     }
 
