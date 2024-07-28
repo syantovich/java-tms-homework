@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+REGISTER
+<form th:action="@{/register}" method="post" th:object="${registerDto}">
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="Email" th:field="*{email}">
+    </div>
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:field="*{name}">
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" th:field="*{password}">
+    </div>
+    <div>
+        <label for="role">Password:</label>
+        <select th:field="*{role}">
+            <option id="role" th:each="role : ${T(com.example.hometask46.enums.ERoles).values()}"
+                    th:value="${role}" th:text="${role}">
+            </option>
+        </select>
+    </div>
+    <button type="submit">Register</button>
+</form>
+</body>
+</html>
