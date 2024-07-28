@@ -48,4 +48,8 @@ public class PersonService implements UserDetailsService {
         personRepository.save(personEntity);
     }
 
+    public Boolean isAdministrator(UserDetails userDetails) {
+        return userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals(ERoles.ADMIN.toRoleString()));
+    }
+
 }

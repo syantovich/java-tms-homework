@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 @Configuration
 public class SecurityConfig {
@@ -14,24 +15,47 @@ public class SecurityConfig {
         return http
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/register").permitAll()
+                                .requestMatchers("/register", "/login", "/no-access").permitAll()
+                                .requestMatchers("/auth-info").authenticated()
+                                .requestMatchers("/admin-page").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/login")
-                                .permitAll()
+                                .loginProcessingUrl("/login")
+                                .usernameParameter("email")
+                                .passwordParameter("password")
+                                .successHandler((request, response, authentication) -> {
+                                    response.sendRedirect("/auth-info");
+                                }).permitAll()
                 )
                 .logout(logout ->
                         logout
                                 .logoutUrl("/logout")
-                                .permitAll()
+                                .logoutSuccessHandler((request, response, authentication) -> {
+                                    request.getSession().invalidate();
+                                    response.sendRedirect("/login");
+                                }).permitAll()
+                )
+                .exceptionHandling(exceptionHandling ->
+                        exceptionHandling
+                                .accessDeniedHandler(accessDeniedHandler())
+                ).csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/logout")
                 )
                 .build();
     }
 
     @Bean
-    PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    AccessDeniedHandler accessDeniedHandler() {
+        return (request, response, accessDeniedException) -> {
+            response.sendRedirect("/no-access");
+        };
     }
 }

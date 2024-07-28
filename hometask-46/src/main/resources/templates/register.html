@@ -19,7 +19,7 @@ REGISTER
         <input type="password" id="password" th:field="*{password}">
     </div>
     <div>
-        <label for="role">Password:</label>
+        <label for="role">Role:</label>
         <select th:field="*{role}">
             <option id="role" th:each="role : ${T(com.example.hometask46.enums.ERoles).values()}"
                     th:value="${role}" th:text="${role}">

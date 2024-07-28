@@ -4,7 +4,6 @@ import com.example.hometask46.dto.RegisterDto;
 import com.example.hometask46.services.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
-import com.example.hometask46.dto.SignDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

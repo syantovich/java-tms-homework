@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Page for authorized users</title>
+</head>
+<body>
+    This is page for authorized page
+    <div th:if="${isAdmin}">
+        <a href="/admin-page">Go to Admin Page</a>
+    </div>
+    <form action="/logout" method="post" th:fragment="logoutForm">
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>
