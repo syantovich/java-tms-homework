@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: hometask-47
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hw-46
+    username: postgres
+    password: root
+  jpa:
+    show-sql: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+jwt:
+  secret: develop-secret-key-423423423lkdfmirunsdcbl,smdf
