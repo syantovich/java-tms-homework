@@ -1,0 +1,4 @@
+app:
+  clients:
+    film-session:
+        url: http://localhost:8081
